@@ -280,6 +280,15 @@
         if(res.ok){
           msgBox.textContent = "Tack! Vi pingar dig när vi går live.";
           msgBox.classList.add('success');
+          
+          // Track email signup event
+          if (window.NuboqAnalytics) {
+            window.NuboqAnalytics.trackCustomEvent('email_signup', {
+              source: 'landing_page',
+              form_type: 'notify_form'
+            });
+          }
+          
           form.reset();
         }else{
           const data = await res.json().catch(()=> ({}));
@@ -295,5 +304,9 @@
       }
     });
   </script>
+  
+  <!-- Analytics Tracker - Lägg till här före </body> -->
+  <script src="https://api.nuboq.com/analytics-tracker.js"></script>
+  <!-- Alternativt om filen ligger lokalt: <script src="/analytics-tracker.js"></script> -->
 </body>
 </html>
